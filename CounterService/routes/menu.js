@@ -13,10 +13,25 @@ router.get('/', function (req, res) {
 });
 
 function buildTree(menus) {
-    for (let i = 0; i < menus.length; i++) {
-        menus[i]
+    let object = {};
+    let nodes = [];
+    menus.forEach(value => object[value.id] = value);
+    for (let i = menus.length - 1; i >= 0; i--) {
+        let node = menus[i];
+        let id = node.id;
+        let parentId = node.parent;
+        let parent = object[parentId];
+        if (parent) {
+            if (!parent['children']) {
+                parent['children'] = [];             
+            }
+            parent['children'].push(object[id]);
+        }
+        else {
+            nodes.push(object[id]);
+        }
     }
-    var children = menus.filter((a => a.parent == node.id));
+    return nodes;
 }
 
 router.get('/list', (req, res) => {
@@ -25,8 +40,8 @@ router.get('/list', (req, res) => {
             ['parent'], ['sort']
         ]
     }).then((re) => {
-        buildTree(re);
-        res.json({ code: 200, data: re });
+        var result = buildTree(re);
+        res.json({ code: 200, data: result });
     }).catch((err) => {
         res.json({
             code: '500',
