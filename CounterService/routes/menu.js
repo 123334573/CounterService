@@ -23,7 +23,7 @@ function buildTree(menus) {
         let parent = object[parentId];
         if (parent) {
             if (!parent['children']) {
-                parent['children'] = [];             
+                parent['children'] = [];
             }
             parent['children'].push(object[id]);
         }
@@ -34,8 +34,8 @@ function buildTree(menus) {
     return nodes;
 }
 
-router.get('/list', (req, res) => {
-    const menus = menu.findAll({
+router.post('/list', (req, res) => {
+    menu.findAll({
         order: [
             ['parent'], ['sort']
         ]
