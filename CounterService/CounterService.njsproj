@@ -33,6 +33,7 @@
     <Content Include="controllers\menu.js" />
     <Content Include="models\customer.js" />
     <Content Include="models\menu.js" />
+    <Content Include="models\person.js" />
     <Content Include="models\user_info.js" />
     <Content Include="routes\index.js" />
     <Content Include="routes\menu.js" />

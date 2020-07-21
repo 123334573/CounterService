@@ -58,6 +58,10 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DATEONLY,
             allowNull: true,
             field: 'modify_date'
+        },
+        children: {
+            type: DataTypes.VIRTUAL,
+            allowNull: true
         }
     }, {
         tableName: 'menu',
