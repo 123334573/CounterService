@@ -4,6 +4,7 @@ const router = express.Router();
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../tools/sequelize');
 const Menu = require('../models/menu');
+const Result = require('../tools/result');
 
 const menu = Menu(sequelize, DataTypes);
 
@@ -41,12 +42,9 @@ router.post('/list', (req, res) => {
         ]
     }).then((re) => {
         var result = buildTree(re);
-        res.json({ code: 200, data: result });
+        res.json(Result.success(result));
     }).catch((err) => {
-        res.json({
-            code: '500',
-            data: err
-        });
+        res.json(Result.error(err));
     });
 });
 

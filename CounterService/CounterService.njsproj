@@ -41,7 +41,13 @@
     <Content Include="package.json" />
     <Content Include="public\stylesheets\main.css" />
     <Content Include="README.md" />
+    <Content Include="tools\result.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="tools\sequelize.js" />
+    <Content Include="tools\token.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="views\index.pug" />
     <Content Include="views\layout.pug" />
     <Content Include="views\error.pug" />

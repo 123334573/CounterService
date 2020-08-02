@@ -6,12 +6,15 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var Cors = require('cors');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var menus = require('./routes/menu');
 
 var app = express();
+
+app.use(Cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +34,17 @@ app.use('/menus', menus);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'content-type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild');
+    res.header('Access-Control-Allow-Methods', 'DELETE,PUT,POST,GET,OPTIONS');
+    if (req.method.toLowerCase() == 'options') {
+        res.send(200);
+    } else {
+        next();
+    }
+    //var err = new Error('Not Found');
+    //err.status = 404;
+    //next(err);
 });
 
 // error handlers

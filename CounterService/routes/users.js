@@ -1,9 +1,11 @@
-'use strict';
+﻿'use strict';
 var express = require('express');
 var router = express.Router();
 const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../tools/sequelize');
 const UserInfo = require('../models/user_info');
+const Result = require('../tools/result');
+const { createToken } = require('../tools/token');
 
 const userInfo = UserInfo(sequelize, DataTypes);
 
@@ -13,15 +15,18 @@ router.get('/', function (req, res) {
 });
 
 router.post('/login', (req, res) => {
+    var data = req.body;
     userInfo.findOne({
-        where: { username: 'admin', password: '123456' }
+        where: { username: data.username, password: data.password }
     }).then((re) => {
-        res.json({ code: 200, data: re });
+        if (re) {
+            res.json(Result.success(createToken(data.username)));
+        }
+        else {
+            res.json(Result.error("用户或密码错误!"));
+        }
     }).catch((err) => {
-        res.json({
-            code: '500',
-            data: err
-        });
+        res.json(Result.error(err));
     });
 });
 
