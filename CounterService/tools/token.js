@@ -4,7 +4,7 @@ const secret = 'Counter';
 
 const createToken = (username) => {
     const payload = { user: username };
-    return sign(payload, secret, { expiresIn: '1h', });
+    return sign(payload, secret, { expiresIn: '1h' });
 };
 
 module.exports = {

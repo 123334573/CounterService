@@ -48,6 +48,20 @@ router.post('/list', (req, res) => {
     });
 });
 
+router.post('/add', (req, res) => {
+    let data = req.body;
+    menu.create(data.data).then(re => {
+        res.json(Result.success('±£´æ³É¹¦'));
+    }).catch(err => {
+        res.json(Result.error(err));
+    });
+});
+
+router.post('/update', (req, res) => {
+    let data = req.body;
+
+
+})
 
 
 module.exports = router;
